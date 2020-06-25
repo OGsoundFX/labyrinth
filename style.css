@@ -1,0 +1,10 @@
+.labyrinth-grid {
+  justify-content: center;
+  text-align: center;
+}
+
+.tile {
+  border: solid black 1px;
+  height: 2.5vw;
+  width: 2.5vw;
+}
