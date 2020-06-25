@@ -1,10 +1,42 @@
+.map {
+text-align: center;
+}
+
 .labyrinth-grid {
   justify-content: center;
   text-align: center;
 }
 
+table {
+  margin: auto;
+}
+
+/*#player {
+  padding: auto;
+  height: 15px;
+  width: 15px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+}*/
+
 .tile {
   border: solid black 1px;
-  height: 2.5vw;
-  width: 2.5vw;
+  height: 1.5vw;
+  width: 1.5vw;
 }
+
+.tile-u {
+  border-left: solid red 1px;
+  border-right: solid red 1px;
+  border-bottom: solid red 1px;
+  border-top: none;
+}
+
+.tile-p {
+  border-left: solid red 1px;
+  border-right: solid red 1px;
+  border-top: none;
+  border-bottom: none;
+}
+
