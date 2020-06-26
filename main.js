@@ -12,11 +12,19 @@ function play(sound) {
 
 const moveUp = () => {
   const player = document.getElementById("player");
-  // const tilePosition = document.getElementById("player");
   i = position(player);
-  console.log(position(player));
-  // console.log(tilePosition);
   const nextTile = document.getElementById("player").parentElement.previousElementSibling.children[i];
+  player.removeAttribute("id");
+  player.innerText = "";
+  nextTile.setAttribute("id", "player");
+  nextTile.innerText = "🔴";
+  play(footstep);
+}
+
+const moveDown = () => {
+  const player = document.getElementById("player");
+  i = position(player);
+  const nextTile = document.getElementById("player").parentElement.nextElementSibling.children[i];
   player.removeAttribute("id");
   player.innerText = "";
   nextTile.setAttribute("id", "player");
