@@ -1,3 +1,10 @@
+body {
+  background: black;
+}
+
+#welcome {
+  color: white;
+}
 .map {
 text-align: center;
 }
@@ -21,20 +28,35 @@ table {
 }*/
 
 #player {
+  font-size: 10px;
   color: #fff;
   text-align: center;
-  -webkit-animation: glow 1s ease-in-out infinite alternate;
-  -moz-animation: glow 1s ease-in-out infinite alternate;
-  animation: glow 1s ease-in-out infinite alternate;
+  -webkit-animation: glow .8s ease-in-out infinite alternate;
+  -moz-animation: glow .8s ease-in-out infinite alternate;
+  animation: glow .8s ease-in-out infinite alternate;
 }
 
-@-webkit-keyframes glow {
+#player2 {
+  font-size: 20px
+}
+
+/*@-webkit-keyframes glow {
   from {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #e60073, 0 0 20px #e60073, 0 0 25px #e60073, 0 0 30px #e60073, 0 0 35px #e60073;
   }
 
   to {
-    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+    text-shadow: 0 0 10px #fff, 0 0 15px #ff4da6, 0 0 20px #ff4da6, 0 0 25px #ff4da6, 0 0 30px #ff4da6, 0 0 35px #ff4da6, 0 0 40px #ff4da6;
+  }
+}*/
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow:0 0 6px #e14140, 0 0 8px #e14140, 0 0 10px #e14140, 0 0 12px #e14140, 0 0 14px #e14140;
+  }
+
+  to {
+    text-shadow:0 0 2px #e14140, 0 0 4px #e14140;
   }
 }
 
