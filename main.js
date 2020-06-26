@@ -10,49 +10,6 @@ function play(sound) {
   sound.play();
 }
 
-
-// const moveUp = () => {
-//   const player = document.getElementById("player");
-//   i = position(player);
-//   const nextTile = document.getElementById("player").parentElement.previousElementSibling.children[i];
-//   player.removeAttribute("id");
-//   player.innerText = "";
-//   nextTile.setAttribute("id", "player");
-//   nextTile.innerText = "🔴";
-//   play(footstep);
-// }
-
-// const moveDown = () => {
-//   const player = document.getElementById("player");
-//   i = position(player);
-//   const nextTile = document.getElementById("player").parentElement.nextElementSibling.children[i];
-//   player.removeAttribute("id");
-//   player.innerText = "";
-//   nextTile.setAttribute("id", "player");
-//   nextTile.innerText = "🔴";
-//   play(footstep);
-// }
-
-// const moveLeft = () => {
-//   const player = document.getElementById("player");
-//   const nextTile = document.getElementById("player").previousElementSibling;
-//   player.removeAttribute("id");
-//   player.innerText = "";
-//   nextTile.setAttribute("id", "player");
-//   nextTile.innerText = "🔴";
-//   play(footstep);
-// }
-
-// const moveRight = () => {
-//   let player = document.getElementById("player");
-//   let nextTile = document.getElementById("player").nextElementSibling;
-//   player.removeAttribute("id");
-//   player.innerText = "";
-//   nextTile.setAttribute("id", "player");
-//   nextTile.innerText = "🔴";
-//   play(footstep);
-// }
-
 const movePlayer = (event) => {
   if (event.keyCode === 38) {
     moveUp();
@@ -81,18 +38,10 @@ const position = (child) => {
 };
 
 
-// Hitting walls
-
-// si c'est un mur, ne pas bouger et play sound
-// determiner si c'est un mur:
-
-
 const moveUpArray = ["u", "p", "r", "l", "0", "1", "3", "4"]
 const moveDownArray = ["p", "m", "n", "d", "0", "1", "2", "4"]
-const moveLeftArray = ["l", "n", "1", "2", "3", "4"]
-const moveRightArray = ["r", "m", "0", "2", "3", "4"]
-
-
+const moveLeftArray = ["l", "n", "1", "2", "3", "4", "h", "y"]
+const moveRightArray = ["r", "m", "0", "2", "3", "4", "h", "x"]
 
 const moveUp = () => {
   let tileType = document.getElementById("player").className[player.className.length - 1];
@@ -154,4 +103,11 @@ const moveRight = () => {
   } else {
     play(bumpWall);
   };
+}
+
+// console.log(player.className.substr(5, 6));
+const finish = player.className.substr(5, 6);
+if (finish === "finish") {
+  alert(`Player ${player} wins! Play again?`);
+  window.location.reload();
 }
