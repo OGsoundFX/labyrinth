@@ -18,15 +18,6 @@ table {
   margin: auto;
 }
 
-/*#player {
-  padding: auto;
-  height: 15px;
-  width: 15px;
-  background-color: red;
-  border-radius: 50%;
-  display: inline-block;
-}*/
-
 #player {
   font-size: 10px;
   color: #fff;
@@ -35,20 +26,6 @@ table {
   -moz-animation: glow .8s ease-in-out infinite alternate;
   animation: glow .8s ease-in-out infinite alternate;
 }
-
-#player2 {
-  font-size: 20px
-}
-
-/*@-webkit-keyframes glow {
-  from {
-    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #e60073, 0 0 20px #e60073, 0 0 25px #e60073, 0 0 30px #e60073, 0 0 35px #e60073;
-  }
-
-  to {
-    text-shadow: 0 0 10px #fff, 0 0 15px #ff4da6, 0 0 20px #ff4da6, 0 0 25px #ff4da6, 0 0 30px #ff4da6, 0 0 35px #ff4da6, 0 0 40px #ff4da6;
-  }
-}*/
 
 @-webkit-keyframes glow {
   from {
