@@ -1,6 +1,6 @@
 const audio = new Audio('audio/background.mp3');
 const footstep = new Audio('audio/footstep1.mp3');
-const bumpWall = new Audio('audio/bump-wall.mp3')
+const bumpWall = new Audio(`audio/bump-wall${Math.random() * (4 - 1) + 1}.mp3`);
 function playLoop(sound) {
   sound.play();
   sound.loop = true;
