@@ -1,6 +1,13 @@
 const audio = new Audio('audio/background.mp3');
 const footstep = new Audio('audio/footstep1.mp3');
-const bumpWall = new Audio(`audio/bump-wall${Math.random() * (4 - 1) + 1}.mp3`);
+const bumpWall1 = new Audio(`audio/bump-wall1.mp3`);
+const bumpWall2 = new Audio(`audio/bump-wall2.mp3`);
+const bumpWall3 = new Audio(`audio/bump-wall3.mp3`);
+const bumpWall4 = new Audio(`audio/bump-wall4.mp3`);
+const bumpWallArray = [bumpWall1, bumpWall2, bumpWall3, bumpWall4];
+
+audio.volume = 0.5;
+
 function playLoop(sound) {
   sound.play();
   sound.loop = true;
@@ -55,7 +62,7 @@ const moveUp = () => {
     nextTile.innerText = "🔴";
     play(footstep);
   } else {
-    play(bumpWall);
+    play(bumpWallArray[Math.floor(Math.random()*4)]);
   };
 }
 
@@ -71,7 +78,7 @@ const moveDown = () => {
     nextTile.innerText = "🔴";
     play(footstep);
     } else {
-      play(bumpWall);
+      play(bumpWallArray[Math.floor(Math.random()*4)]);
     };
   }
 
@@ -86,7 +93,7 @@ const moveLeft = () => {
     nextTile.innerText = "🔴";
     play(footstep);
   } else {
-    play(bumpWall);
+    play(bumpWallArray[Math.floor(Math.random()*4)]);
   };
 }
 
@@ -100,14 +107,23 @@ const moveRight = () => {
     nextTile.setAttribute("id", "player");
     nextTile.innerText = "🔴";
     play(footstep);
+    const finish = player.className.substr(5, 6);
+
+    setTimeout(function(){
+      if (finish === "finish") {
+        alert(`Player ${player} wins! Play again?`);
+        window.location.reload();
+      }
+    }, 50);
+
   } else {
-    play(bumpWall);
+    play(bumpWallArray[Math.floor(Math.random()*4)]);
   };
 }
 
 // console.log(player.className.substr(5, 6));
-const finish = player.className.substr(5, 6);
-if (finish === "finish") {
-  alert(`Player ${player} wins! Play again?`);
-  window.location.reload();
-}
+// const finish = player.className.substr(5, 6);
+// if (finish === "finish") {
+//   alert(`Player ${player} wins! Play again?`);
+//   window.location.reload();
+// }
