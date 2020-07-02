@@ -15,26 +15,39 @@ audio.volume = 0.5;
 
 // Sound functions
 
-function playLoop(sound) {
+function play(sound, dir) {
   let audioContext = new AudioContext();
-  const pre = document.querySelector('pre');
-  const myScript = document.querySelector('script');
+  let pre = document.querySelector('pre');
+  let myScript = document.querySelector('script');
 
   let source = audioContext.createMediaElementSource(sound);
 
   let panNode = audioContext.createStereoPanner();
   source.connect(panNode);
   panNode.connect(audioContext.destination);
+  if (dir === "left") {
+    panNode.pan.value = -0.8
+  } else if (dir === "right") {
+    panNode.pan.value = 0.8;
+  } else {
+    panNode.pan.value = 0;
+  }
+  sound.play();
 
-  panNode.pan.value = 1;
+  setTimeout(function(){
+    sound.stop();
+  }, 100);
 
+}
+
+function playLoop(sound) {
   sound.play();
   sound.loop = true;
 }
 
-function play(sound) {
-  sound.play();
-}
+// function play(sound) {
+//   sound.play();
+// }
 
 // Mouvement functions
 
@@ -114,7 +127,7 @@ const moveLeft = () => {
     nextTile.innerText = "🔴";
     play(footstep);
   } else {
-    play(bumpWallArray[Math.floor(Math.random()*4)]);
+    play(bumpWallArray[Math.floor(Math.random()*4)], "left");
   };
 }
 
@@ -138,7 +151,7 @@ const moveRight = () => {
     }, 50);
 
   } else {
-    play(bumpWallArray[Math.floor(Math.random()*4)]);
+    play(bumpWallArray[Math.floor(Math.random()*4)], "right");
   };
 }
 
