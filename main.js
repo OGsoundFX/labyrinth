@@ -1,4 +1,7 @@
+// Loading the audio tracks
+
 const audio = new Audio('audio/background.mp3');
+// audio.crossOrigin = "anonymous";
 const footstep = new Audio('audio/footstep1.mp3');
 const bumpWall1 = new Audio(`audio/bump-wall1.mp3`);
 const bumpWall2 = new Audio(`audio/bump-wall2.mp3`);
@@ -8,7 +11,23 @@ const bumpWallArray = [bumpWall1, bumpWall2, bumpWall3, bumpWall4];
 
 audio.volume = 0.5;
 
+//Web Audio API
+
+// Sound functions
+
 function playLoop(sound) {
+  let audioContext = new AudioContext();
+  const pre = document.querySelector('pre');
+  const myScript = document.querySelector('script');
+
+  let source = audioContext.createMediaElementSource(sound);
+
+  let panNode = audioContext.createStereoPanner();
+  source.connect(panNode);
+  panNode.connect(audioContext.destination);
+
+  panNode.pan.value = 1;
+
   sound.play();
   sound.loop = true;
 }
@@ -16,6 +35,8 @@ function playLoop(sound) {
 function play(sound) {
   sound.play();
 }
+
+// Mouvement functions
 
 const movePlayer = (event) => {
   if (event.keyCode === 38) {
