@@ -1,32 +1,79 @@
-// Loading the audio tracks
-
-const audio = new Audio('audio/background.mp3');
-// audio.crossOrigin = "anonymous";
+const background = new Audio('audio/background.mp3');
+background.volume = 0.5;
 const footstep = new Audio('audio/footstep1.mp3');
-const bumpWall1 = new Audio(`audio/bump-wall1.mp3`);
-const bumpWall2 = new Audio(`audio/bump-wall2.mp3`);
-const bumpWall3 = new Audio(`audio/bump-wall3.mp3`);
-const bumpWall4 = new Audio(`audio/bump-wall4.mp3`);
-const bumpWallArray = [bumpWall1, bumpWall2, bumpWall3, bumpWall4];
-
 const trapFall = new Audio('audio/pitSpiked1.mp3');
+// const bumpWall1 = new Audio(`audio/bump-wall1.mp3`);
+// const bumpWall2 = new Audio(`audio/bump-wall2.mp3`);
+// const bumpWall3 = new Audio(`audio/bump-wall3.mp3`);
+// const bumpWall4 = new Audio(`audio/bump-wall4.mp3`);
+// const bumpWallArray = [bumpWall1, bumpWall2, bumpWall3, bumpWall4];
 
-audio.volume = 0.5;
+// function playMove(sound, dir) {
+//   let audioContext = new AudioContext();
+//   let pre = document.querySelector('pre');
+//   let myScript = document.querySelector('script');
 
-//Web Audio API
+//   let source = audioContext.createMediaElementSource(sound);
 
-// Sound functions
+//   let panNode = audioContext.createStereoPanner();
+//   source.connect(panNode);
+//   panNode.connect(audioContext.destination);
+//   if (dir === "left") {
+//     panNode.pan.value = -0.8
+//   } else if (dir === "right") {
+//     panNode.pan.value = 0.8;
+//   } else {
+//     panNode.pan.value = 0;
+//   }
+//   sound.play();
+// }
+
+
+// let audio;
+let bumpWall1;
+let bumpWall2;
+let bumpWall3;
+let bumpWall4;
+
+
+const audioContext = new AudioContext();
+fetch( 'audio/bump-wall1.mp3' ).then( resp => resp.arrayBuffer() )
+.then( buf => audioContext.decodeAudioData( buf ) )
+.then( audioBuffer => bumpWall1 = audioBuffer )
+.then( () => sel.disabled = false )
+.catch( console.error );
+
+fetch( 'audio/bump-wall2.mp3' ).then( resp => resp.arrayBuffer() )
+.then( buf => audioContext.decodeAudioData( buf ) )
+.then( audioBuffer => bumpWall2 = audioBuffer )
+.then( () => sel.disabled = false )
+.catch( console.error );
+
+fetch( 'audio/bump-wall3.mp3' ).then( resp => resp.arrayBuffer() )
+.then( buf => audioContext.decodeAudioData( buf ) )
+.then( audioBuffer => bumpWall3 = audioBuffer )
+.then( () => sel.disabled = false )
+.catch( console.error );
+
+fetch( 'audio/bump-wall4.mp3' ).then( resp => resp.arrayBuffer() )
+.then( buf => audioContext.decodeAudioData( buf ) )
+.then( audioBuffer => bumpWall4 = audioBuffer )
+.then( () => sel.disabled = false )
+.catch( console.error );
+
+// const bumpWallArray = [bumpWall1, bumpWall2, bumpWall3, bumpWall4];
+
+// console.log (bumpWallArray);
+
 
 function playMove(sound, dir) {
-  let audioContext = new AudioContext();
-  let pre = document.querySelector('pre');
-  let myScript = document.querySelector('script');
 
-  let source = audioContext.createMediaElementSource(sound);
+  let source = audioContext.createBufferSource();
+  source.buffer = sound;
 
   let panNode = audioContext.createStereoPanner();
-  source.connect(panNode);
-  panNode.connect(audioContext.destination);
+  source.connect( panNode );
+  panNode.connect( audioContext.destination );
   if (dir === "left") {
     panNode.pan.value = -0.8
   } else if (dir === "right") {
@@ -34,8 +81,10 @@ function playMove(sound, dir) {
   } else {
     panNode.pan.value = 0;
   }
-  sound.play();
+  source.start( 0 );
+
 }
+
 
 function playLoop(sound) {
   sound.play();
@@ -106,7 +155,7 @@ const moveUp = () => {
     }
 
   } else {
-    playMove(bumpWallArray[Math.floor(Math.random()*4)], "up");
+    playMove([bumpWall1, bumpWall2, bumpWall3, bumpWall4][Math.floor(Math.random()*4)], "up");
   };
 }
 
@@ -122,7 +171,7 @@ const moveDown = () => {
     nextTile.innerText = "🔴";
     play(footstep);
     } else {
-      playMove(bumpWallArray[Math.floor(Math.random()*4)], "down");
+      playMove([bumpWall1, bumpWall2, bumpWall3, bumpWall4][Math.floor(Math.random()*4)], "down");
     };
   }
 
@@ -137,7 +186,7 @@ const moveLeft = () => {
     nextTile.innerText = "🔴";
     play(footstep);
   } else {
-    playMove(bumpWallArray[Math.floor(Math.random()*4)], "left");
+    playMove([bumpWall1, bumpWall2, bumpWall3, bumpWall4][Math.floor(Math.random()*4)], "left");
   };
 }
 
@@ -161,7 +210,7 @@ const moveRight = () => {
     }, 50);
 
   } else {
-    playMove(bumpWallArray[Math.floor(Math.random()*4)], "right");
+    playMove([bumpWall1, bumpWall2, bumpWall3, bumpWall4][Math.floor(Math.random()*4)], "right");
   };
 }
 
