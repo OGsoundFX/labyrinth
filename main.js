@@ -9,13 +9,15 @@ const bumpWall3 = new Audio(`audio/bump-wall3.mp3`);
 const bumpWall4 = new Audio(`audio/bump-wall4.mp3`);
 const bumpWallArray = [bumpWall1, bumpWall2, bumpWall3, bumpWall4];
 
+const trapFall = new Audio('audio/pitSpiked1.mp3');
+
 audio.volume = 0.5;
 
 //Web Audio API
 
 // Sound functions
 
-function play(sound, dir) {
+function playMove(sound, dir) {
   let audioContext = new AudioContext();
   let pre = document.querySelector('pre');
   let myScript = document.querySelector('script');
@@ -33,11 +35,6 @@ function play(sound, dir) {
     panNode.pan.value = 0;
   }
   sound.play();
-
-  setTimeout(function(){
-    sound.stop();
-  }, 100);
-
 }
 
 function playLoop(sound) {
@@ -45,9 +42,9 @@ function playLoop(sound) {
   sound.loop = true;
 }
 
-// function play(sound) {
-//   sound.play();
-// }
+function play(sound) {
+  sound.play();
+}
 
 // Mouvement functions
 
@@ -95,8 +92,21 @@ const moveUp = () => {
     nextTile.setAttribute("id", "player");
     nextTile.innerText = "🔴";
     play(footstep);
+
+    const trap = player.className.substr(5, 4);
+
+    console.log(trap);
+
+    if (trap === "trap") {
+      play(trapFall);
+      setTimeout(function(){
+          alert(`You fell into a pit and died! Play again?`);
+          window.location.reload();
+      }, 50);
+    }
+
   } else {
-    play(bumpWallArray[Math.floor(Math.random()*4)]);
+    playMove(bumpWallArray[Math.floor(Math.random()*4)], "up");
   };
 }
 
@@ -112,7 +122,7 @@ const moveDown = () => {
     nextTile.innerText = "🔴";
     play(footstep);
     } else {
-      play(bumpWallArray[Math.floor(Math.random()*4)]);
+      playMove(bumpWallArray[Math.floor(Math.random()*4)], "down");
     };
   }
 
@@ -127,7 +137,7 @@ const moveLeft = () => {
     nextTile.innerText = "🔴";
     play(footstep);
   } else {
-    play(bumpWallArray[Math.floor(Math.random()*4)], "left");
+    playMove(bumpWallArray[Math.floor(Math.random()*4)], "left");
   };
 }
 
@@ -145,13 +155,13 @@ const moveRight = () => {
 
     setTimeout(function(){
       if (finish === "finish") {
-        alert(`Player ${player} wins! Play again?`);
+        alert(`You win! Play again?`);
         window.location.reload();
       }
     }, 50);
 
   } else {
-    play(bumpWallArray[Math.floor(Math.random()*4)], "right");
+    playMove(bumpWallArray[Math.floor(Math.random()*4)], "right");
   };
 }
 
