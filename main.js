@@ -34,43 +34,42 @@ let bumpWall1;
 let bumpWall2;
 let bumpWall3;
 let bumpWall4;
+let monsterGrowl1;
 
 
 const audioContext = new AudioContext();
 fetch( 'audio/bump-wall1.mp3' ).then( resp => resp.arrayBuffer() )
 .then( buf => audioContext.decodeAudioData( buf ) )
 .then( audioBuffer => bumpWall1 = audioBuffer )
-.then( () => sel.disabled = false )
 .catch( console.error );
 
 fetch( 'audio/bump-wall2.mp3' ).then( resp => resp.arrayBuffer() )
 .then( buf => audioContext.decodeAudioData( buf ) )
 .then( audioBuffer => bumpWall2 = audioBuffer )
-.then( () => sel.disabled = false )
 .catch( console.error );
 
 fetch( 'audio/bump-wall3.mp3' ).then( resp => resp.arrayBuffer() )
 .then( buf => audioContext.decodeAudioData( buf ) )
 .then( audioBuffer => bumpWall3 = audioBuffer )
-.then( () => sel.disabled = false )
 .catch( console.error );
 
 fetch( 'audio/bump-wall4.mp3' ).then( resp => resp.arrayBuffer() )
 .then( buf => audioContext.decodeAudioData( buf ) )
 .then( audioBuffer => bumpWall4 = audioBuffer )
-.then( () => sel.disabled = false )
 .catch( console.error );
 
-// const bumpWallArray = [bumpWall1, bumpWall2, bumpWall3, bumpWall4];
+// Monster sounds
 
-// console.log (bumpWallArray);
+fetch( 'audio/Beast_Growl_1.mp3' ).then( resp => resp.arrayBuffer() )
+.then( buf => audioContext.decodeAudioData( buf ) )
+.then( audioBuffer => monsterGrowl1 = audioBuffer )
+.catch( console.error );
 
 
 function playMove(sound, dir) {
 
   let source = audioContext.createBufferSource();
   source.buffer = sound;
-
   let panNode = audioContext.createStereoPanner();
   source.connect( panNode );
   panNode.connect( audioContext.destination );
@@ -82,8 +81,27 @@ function playMove(sound, dir) {
     panNode.pan.value = 0;
   }
   source.start( 0 );
-
 }
+
+function playMonster(sound, dir, level) {
+  sound.volume = (level / 8);
+  let source = audioContext.createBufferSource();
+  source.buffer = sound;
+  let panNode = audioContext.createStereoPanner();
+  source.connect( panNode );
+  panNode.connect( audioContext.destination );
+
+  if (dir === "left") {
+    panNode.pan.value = -0.8
+  } else if (dir === "right") {
+    panNode.pan.value = 0.8;
+  } else {
+    panNode.pan.value = 0;
+  }
+  source.start( 0 );
+  // source.loop = true;
+}
+
 
 
 function playLoop(sound) {
@@ -200,8 +218,15 @@ const moveRight = () => {
     nextTile.setAttribute("id", "player");
     nextTile.innerText = "🔴";
     play(footstep);
-    const finish = player.className.substr(5, 6);
 
+    // Monster encounter
+
+    if (player.dataset.monster) {
+      playMonster(monsterGrowl1, player.dataset.monster.slice(0, -1), parseInt(player.dataset.monster[player.dataset.monster.length -1], 10));
+    }
+
+    // Finish
+    const finish = player.className.substr(5, 6);
     setTimeout(function(){
       if (finish === "finish") {
         alert(`You win! Play again?`);
@@ -220,3 +245,25 @@ const moveRight = () => {
 //   alert(`Player ${player} wins! Play again?`);
 //   window.location.reload();
 // }
+
+const monsterNearby = (monster) => {
+  const monsterPosition = document.getElementById(monster);
+  i = position(monsterPosition);
+  const previousTile = monsterPosition.previousElementSibling;
+  const nextTile = monsterPosition.nextElementSibling;
+  const upTile = monsterPosition.parentElement.previousElementSibling.children[i];
+  const downTile = monsterPosition.parentElement.nextElementSibling.children[i];
+
+  // ATTENTION: left and right are inverted to be implemented in the playMonster function
+  previousTile.setAttribute("data-monster", "right2");
+  nextTile.setAttribute("data-monster", "left2");
+  upTile.setAttribute("data-monster", "up2");
+  downTile.setAttribute("data-monster", "down2");
+  // console.log(previousTile);
+  // console.log(nextTile);
+  // console.log(upTile);
+  // console.log(downTile);
+}
+
+monsterNearby("monster1");
+monsterNearby("monster2");
