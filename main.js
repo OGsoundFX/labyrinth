@@ -1,6 +1,6 @@
 const background = new Audio('audio/background.mp3');
 background.volume = 0.5;
-const footstep = new Audio('audio/footstep1.mp3');
+// const footstep = new Audio('audio/footsteps/footstep1.mp3');
 const trapFall = new Audio('audio/pitSpiked1.mp3');
 // const bumpWall1 = new Audio(`audio/bump-wall1.mp3`);
 // const bumpWall2 = new Audio(`audio/bump-wall2.mp3`);
@@ -28,16 +28,34 @@ const trapFall = new Audio('audio/pitSpiked1.mp3');
 //   sound.play();
 // }
 
+// footstepts
 
-// let audio;
-let bumpWall1;
-let bumpWall2;
-let bumpWall3;
-let bumpWall4;
-let monsterGrowl1;
-
+let footstep1, footstep2, footstep3, footstep4
 
 const audioContext = new AudioContext();
+fetch( 'audio/footsteps/footstep1.mp3' ).then( resp => resp.arrayBuffer() )
+.then( buf => audioContext.decodeAudioData( buf ) )
+.then( audioBuffer => footstep1 = audioBuffer )
+.catch( console.error );
+
+fetch( 'audio/footsteps/footstep2.mp3' ).then( resp => resp.arrayBuffer() )
+.then( buf => audioContext.decodeAudioData( buf ) )
+.then( audioBuffer => footstep2 = audioBuffer )
+.catch( console.error );
+
+fetch( 'audio/footsteps/footstep3.mp3' ).then( resp => resp.arrayBuffer() )
+.then( buf => audioContext.decodeAudioData( buf ) )
+.then( audioBuffer => footstep3 = audioBuffer )
+.catch( console.error );
+
+fetch( 'audio/footsteps/footstep4.mp3' ).then( resp => resp.arrayBuffer() )
+.then( buf => audioContext.decodeAudioData( buf ) )
+.then( audioBuffer => footstep4 = audioBuffer )
+.catch( console.error );
+
+// bumpwall sounds
+let bumpWall1, bumpWall2, bumpWall3, bumpWall4, monsterGrowl1;
+
 fetch( 'audio/bump-wall1.mp3' ).then( resp => resp.arrayBuffer() )
 .then( buf => audioContext.decodeAudioData( buf ) )
 .then( audioBuffer => bumpWall1 = audioBuffer )
@@ -158,7 +176,7 @@ const moveUp = () => {
     player.innerText = "";
     nextTile.setAttribute("id", "player");
     nextTile.innerText = "🔴";
-    play(footstep);
+    play([footstep1, footstep2, footstep3, footstep4][Math.floor(Math.random()*4)]);
 
     const trap = player.className.substr(5, 4);
 
@@ -187,7 +205,8 @@ const moveDown = () => {
     player.innerText = "";
     nextTile.setAttribute("id", "player");
     nextTile.innerText = "🔴";
-    play(footstep);
+    console.log([footstep1, footstep2, footstep3, footstep4][Math.floor(Math.random()*4)])
+    play([footstep1, footstep2, footstep3, footstep4][Math.floor(Math.random()*4)]);
     } else {
       playMove([bumpWall1, bumpWall2, bumpWall3, bumpWall4][Math.floor(Math.random()*4)], "down");
     };
@@ -202,7 +221,7 @@ const moveLeft = () => {
     player.innerText = "";
     nextTile.setAttribute("id", "player");
     nextTile.innerText = "🔴";
-    play(footstep);
+    play([footstep1, footstep2, footstep3, footstep4][Math.floor(Math.random()*4)]);
   } else {
     playMove([bumpWall1, bumpWall2, bumpWall3, bumpWall4][Math.floor(Math.random()*4)], "left");
   };
@@ -217,7 +236,7 @@ const moveRight = () => {
     player.innerText = "";
     nextTile.setAttribute("id", "player");
     nextTile.innerText = "🔴";
-    play(footstep);
+    play([footstep1, footstep2, footstep3, footstep4][Math.floor(Math.random()*4)]);
 
     // Monster encounter
 
