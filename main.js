@@ -83,7 +83,6 @@ fetch( 'audio/Beast_Growl_1.mp3' ).then( resp => resp.arrayBuffer() )
 .then( audioBuffer => monsterGrowl1 = audioBuffer )
 .catch( console.error );
 
-
 function playMove(sound, dir) {
 
   let source = audioContext.createBufferSource();
@@ -127,9 +126,6 @@ function playLoop(sound) {
   sound.loop = true;
 }
 
-function play(sound) {
-  sound.play();
-}
 
 // Mouvement functions
 
@@ -176,7 +172,7 @@ const moveUp = () => {
     player.innerText = "";
     nextTile.setAttribute("id", "player");
     nextTile.innerText = "🔴";
-    play([footstep1, footstep2, footstep3, footstep4][Math.floor(Math.random()*4)]);
+    playMove([footstep1, footstep2, footstep3, footstep4][Math.floor(Math.random()*4)], "up");
 
     const trap = player.className.substr(5, 4);
 
@@ -206,7 +202,7 @@ const moveDown = () => {
     nextTile.setAttribute("id", "player");
     nextTile.innerText = "🔴";
     console.log([footstep1, footstep2, footstep3, footstep4][Math.floor(Math.random()*4)])
-    play([footstep1, footstep2, footstep3, footstep4][Math.floor(Math.random()*4)]);
+    playMove([footstep1, footstep2, footstep3, footstep4][Math.floor(Math.random()*4)], "up");
     } else {
       playMove([bumpWall1, bumpWall2, bumpWall3, bumpWall4][Math.floor(Math.random()*4)], "down");
     };
@@ -221,7 +217,7 @@ const moveLeft = () => {
     player.innerText = "";
     nextTile.setAttribute("id", "player");
     nextTile.innerText = "🔴";
-    play([footstep1, footstep2, footstep3, footstep4][Math.floor(Math.random()*4)]);
+    playMove([footstep1, footstep2, footstep3, footstep4][Math.floor(Math.random()*4)], "up");
   } else {
     playMove([bumpWall1, bumpWall2, bumpWall3, bumpWall4][Math.floor(Math.random()*4)], "left");
   };
@@ -236,7 +232,7 @@ const moveRight = () => {
     player.innerText = "";
     nextTile.setAttribute("id", "player");
     nextTile.innerText = "🔴";
-    play([footstep1, footstep2, footstep3, footstep4][Math.floor(Math.random()*4)]);
+    playMove([footstep1, footstep2, footstep3, footstep4][Math.floor(Math.random()*4)], "up");
 
     // Monster encounter
 
